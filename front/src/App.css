@@ -1,0 +1,470 @@
+/* Core app styles */
+.App {
+  max-width: 1000px;
+  margin: 0 auto;
+  padding: 20px;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  color: #333;
+  background-color: #f5f5f5;
+  border-radius: 10px;
+  box-shadow: 0 0 20px rgba(0, 0, 0, 0.05);
+}
+
+/* Heading styles */
+h1 {
+  color: #2c3e50;
+  text-align: center;
+  margin-bottom: 30px;
+  font-weight: 600;
+  border-bottom: 2px solid #3498db;
+  padding-bottom: 15px;
+}
+
+h2 {
+  color: #2c3e50;
+  margin: 0 0 20px;
+  padding-bottom: 10px;
+  border-bottom: 1px solid #ddd;
+  font-size: 1.3rem;
+}
+
+h3 {
+  color: #2c3e50;
+  margin: 15px 0 10px;
+  font-size: 1.1rem;
+}
+
+/* Connection panel styles */
+.connection-panel {
+  background-color: #ffffff;
+  padding: 20px;
+  border-radius: 8px;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+  margin-bottom: 25px;
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+}
+
+.connection-panel p {
+  width: 100%;
+  margin-top: 15px;
+  font-weight: 500;
+}
+
+/* Status colors */
+.connected {
+  color: #27ae60;
+  font-weight: bold;
+}
+
+.disconnected {
+  color: #7f8c8d;
+}
+
+.error, .failed {
+  color: #e74c3c;
+  font-weight: bold;
+}
+
+/* Input and button styles */
+label {
+  margin-right: 10px;
+  font-weight: 600;
+  color: #2c3e50;
+}
+
+input {
+  padding: 10px 15px;
+  margin-right: 10px;
+  border-radius: 4px;
+  border: 1px solid #ddd;
+  flex-grow: 1;
+  max-width: 300px;
+  font-size: 14px;
+  transition: border-color 0.3s;
+}
+
+input:focus {
+  outline: none;
+  border-color: #3498db;
+  box-shadow: 0 0 5px rgba(52, 152, 219, 0.3);
+}
+
+button {
+  padding: 10px 20px;
+  background-color: #3498db;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: all 0.3s;
+  font-weight: 500;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+button:hover {
+  background-color: #2980b9;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
+}
+
+/* Main container and panel styles */
+.main-container {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+/* Project list panel */
+.project-list {
+  background-color: #ffffff;
+  padding: 20px;
+  border-radius: 8px;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+  margin-bottom: 20px;
+}
+
+/* Router and config containers */
+.router-config-container {
+  display: flex;
+  gap: 20px;
+  flex-wrap: wrap;
+}
+
+.router-list {
+  flex: 1;
+  min-width: 250px;
+  background-color: #ffffff;
+  padding: 20px;
+  border-radius: 8px;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+}
+
+.rip-config-panel {
+  flex: 2;
+  min-width: 300px;
+  background-color: #ffffff;
+  padding: 20px;
+  border-radius: 8px;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+}
+
+/* List styles */
+ul {
+  list-style-type: none;
+  padding: 0;
+  margin-top: 10px;
+}
+
+li {
+  padding: 12px 15px;
+  margin: 8px 0;
+  background-color: #f8f9fa;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: all 0.3s;
+  border-left: 3px solid transparent;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+}
+
+/* Hover and selection styles for projects and routers */
+.project-list li:hover, .router-list li:hover {
+  background-color: #ecf0f1;
+  border-left-color: #3498db;
+  transform: translateX(3px);
+}
+
+.project-list li.selected, .router-list li.selected {
+  background-color: #e1f0fa;
+  border-left-color: #3498db;
+  font-weight: 500;
+}
+
+/* Network configuration styles */
+.network-input {
+  margin-bottom: 20px;
+}
+
+.network-add {
+  display: flex;
+  gap: 10px;
+}
+
+.network-add input {
+  flex-grow: 1;
+  max-width: none;
+}
+
+.networks-list ul {
+  max-height: 200px;
+  overflow-y: auto;
+}
+
+.network-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  cursor: default;
+}
+
+.remove-btn {
+  background-color: #e74c3c;
+  padding: 5px 10px;
+  font-size: 0.8rem;
+}
+
+.remove-btn:hover {
+  background-color: #c0392b;
+}
+
+.configure-btn {
+  margin-top: 25px;
+  background-color: #2ecc71;
+  font-size: 1.1rem;
+  padding: 12px 25px;
+  width: 100%;
+}
+
+.configure-btn:hover {
+  background-color: #27ae60;
+}
+
+/* Loading overlay and spinner */
+.loading-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(255, 255, 255, 0.7);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  z-index: 100;
+}
+
+.loading-spinner {
+  width: 50px;
+  height: 50px;
+  border: 5px solid #f3f3f3;
+  border-top: 5px solid #3498db;
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+  margin-bottom: 15px;
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+/* Tab navigation styles */
+.tab-navigation {
+  display: flex;
+  margin-bottom: 20px;
+  border-bottom: 1px solid #ddd;
+  gap: 5px;
+}
+
+.tab-navigation button {
+  padding: 10px 20px;
+  margin-bottom: -1px;
+  background-color: #f8f9fa;
+  color: #555;
+  border: 1px solid transparent;
+  border-bottom: none;
+  border-radius: 5px 5px 0 0;
+  cursor: pointer;
+  transition: all 0.3s;
+  font-weight: 500;
+  box-shadow: none;
+}
+
+.tab-navigation button:hover {
+  background-color: #e9ecef;
+  transform: translateY(0);
+  box-shadow: none;
+}
+
+.tab-navigation button.tab-active {
+  background-color: #fff;
+  color: #3498db;
+  border-color: #ddd;
+  border-bottom: 2px solid white;
+  font-weight: 600;
+}
+
+/* Config panel */
+.config-panel {
+  flex: 2;
+  min-width: 300px;
+  background-color: #ffffff;
+  padding: 20px;
+  border-radius: 8px;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+}
+
+/* Interface configuration styles */
+.interface-fields {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  margin-bottom: 20px;
+}
+
+.input-group {
+  display: flex;
+  flex-direction: column;
+}
+
+.input-group label {
+  margin-bottom: 5px;
+  font-weight: 500;
+}
+
+.input-group input {
+  max-width: 100%;
+}
+
+.interface-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  cursor: default;
+  padding: 10px 15px;
+}
+
+.interface-details {
+  flex: 1;
+}
+
+/* PC configuration styles */
+.pc-input {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+  margin-bottom: 25px;
+}
+
+/* Node selection view */
+.node-selection {
+  display: flex;
+  gap: 20px;
+  flex-wrap: wrap;
+}
+
+.pc-list {
+  flex: 1;
+  min-width: 250px;
+  background-color: #ffffff;
+  padding: 20px;
+  border-radius: 8px;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+}
+
+/* Node list styles */
+.node-list {
+  flex: 1;
+  min-width: 250px;
+  background-color: #ffffff;
+  padding: 20px;
+  border-radius: 8px;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.router-section, .pc-section {
+  margin-bottom: 10px;
+}
+
+/* Hover and selection styles for PCs */
+.pc-section li:hover {
+  background-color: #ecf0f1;
+  border-left-color: #e67e22;
+  transform: translateX(3px);
+}
+
+.pc-section li.selected {
+  background-color: #fef0e6;
+  border-left-color: #e67e22;
+  font-weight: 500;
+}
+
+/* Router info styles */
+.router-info {
+  background-color: #fff;
+  border-radius: 8px;
+  padding: 20px;
+}
+
+.info-section {
+  margin-bottom: 25px;
+}
+
+.info-section h3 {
+  color: #2c3e50;
+  margin-bottom: 10px;
+  padding-bottom: 5px;
+  border-bottom: 1px solid #eee;
+}
+
+.router-info pre {
+  background-color: #f8f9fa;
+  padding: 15px;
+  border-radius: 5px;
+  border-left: 3px solid #3498db;
+  font-family: "Courier New", monospace;
+  font-size: 0.9rem;
+  line-height: 1.4;
+  overflow-x: auto;
+  white-space: pre-wrap;
+  max-height: 300px;
+  overflow-y: auto;
+}
+
+/* Responsive styles */
+@media (max-width: 768px) {
+  .connection-panel {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+  
+  input, button {
+    width: 100%;
+    margin: 5px 0;
+    max-width: none;
+  }
+  
+  .router-config-container {
+    flex-direction: column;
+  }
+  
+  .router-list, .rip-config-panel {
+    width: 100%;
+  }
+  
+  .tab-navigation {
+    flex-direction: row;
+    flex-wrap: wrap;
+    gap: 0;
+  }
+  
+  .tab-navigation button {
+    flex: 1;
+    text-align: center;
+    padding: 8px 5px;
+    font-size: 0.9rem;
+  }
+  
+  .interface-fields {
+    flex-direction: column;
+  }
+  
+  .input-group {
+    width: 100%;
+  }
+}

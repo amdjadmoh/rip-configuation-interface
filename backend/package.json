@@ -1,0 +1,30 @@
+{
+  "name": "project-resau-auto-config",
+  "version": "1.0.0",
+  "description": "**URL**: `http://localhost:3000/configure-interfaces`",
+  "keywords": [],
+  "homepage": "https://github.com/abderrahmaneknc/Network-projects#readme",
+  "bugs": {
+    "url": "https://github.com/abderrahmaneknc/Network-projects/issues"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/abderrahmaneknc/Network-projects.git"
+  },
+  "license": "ISC",
+  "author": "",
+  "type": "commonjs",
+  "main": "ap.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "dev": "nodemon app.js"
+  },
+  "dependencies": {
+    "body-parser": "^2.2.0",
+    "cors": "^2.8.5",
+    "express": "^5.1.0",
+    "morgan": "^1.10.0",
+    "ssh2": "^1.16.0",
+    "telnet-client": "^2.2.5"
+  }
+}
