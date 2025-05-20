@@ -5,7 +5,7 @@ exports.getRoutingTable = async (routerPort) => {
     const result = await conn.exec('show ip route');
     conn.end();
     
-    const commandLine = `${routerPort}> show ip route`;
+    const commandLine = `show ip route`;
     return `${commandLine}\n${result}`;
     }
 exports.getInterfaces = async (routerPort) => {
@@ -13,7 +13,7 @@ exports.getInterfaces = async (routerPort) => {
     const result = await conn.exec('show ip interface brief');
     conn.end();
     
-    const commandLine = `${routerPort}> show ip interface brief`;
+    const commandLine = `show ip interface brief`;
     return `${commandLine}\n${result}`;
 }
 

@@ -21,9 +21,12 @@ function App() {
   const [selectedPc, setSelectedPc] = useState(null);
   const [pcConfig, setPcConfig] = useState({ ip: '', mask: '255.255.255.0', gateway: '' });
   // Tab state for switching between different configuration panels
-  const [activeTab, setActiveTab] = useState('interfaces'); // 'interfaces', 'rip', 'pc', 'info'
+  const [activeTab, setActiveTab] = useState('interfaces'); // 'interfaces', 'rip', 'pc', 'info', 'ping'
   // New state for router information
   const [routerInfo, setRouterInfo] = useState({ routingTable: '', interfaceList: '' });
+  // New state for ping functionality
+  const [pingTarget, setPingTarget] = useState('');
+  const [pingResult, setPingResult] = useState('');
   
   const API_BASE = `${gns3Server}/v2`;
 
@@ -260,6 +263,48 @@ function App() {
     } catch (error) {
       console.error('Error configuring PC:', error);
       alert(`Error configuring PC: ${error.message}`);
+    } finally {
+      setIsLoading(false);
+    }
+  };
+
+  // Ping from PC to target IP
+  const pingFromPc = async () => {
+    if (!selectedPc) {
+      alert('Please select a PC first.');
+      return;
+    }
+
+    if (!pingTarget) {
+      alert('Please enter a target IP address to ping.');
+      return;
+    }
+
+    setIsLoading(true);
+    setPingResult('');
+    
+    try {
+      const response = await fetch(`http://localhost:3001/ping`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          sourcePC: selectedPc.console,
+          targetIP: pingTarget,
+        }),
+      });
+
+      if (response.ok) {
+        const result = await response.text();
+        setPingResult(result);
+      } else {
+        const errorText = await response.text();
+        setPingResult(`Ping failed: ${errorText}`);
+      }
+    } catch (error) {
+      console.error('Error executing ping:', error);
+      setPingResult(`Error executing ping: ${error.message}`);
     } finally {
       setIsLoading(false);
     }
@@ -528,41 +573,85 @@ function App() {
 
             {selectedPc && (
               <div className="config-panel">
-                <h2>Configure PC {selectedPc.name}</h2>
-                
-                <div className="pc-input">
-                  <div className="input-group">
-                    <label>IP Address:</label>
-                    <input 
-                      type="text" 
-                      value={pcConfig.ip} 
-                      onChange={(e) => handlePcConfigChange('ip', e.target.value)} 
-                      placeholder="e.g., 192.168.1.10" 
-                    />
-                  </div>
-                  <div className="input-group">
-                    <label>Subnet Mask:</label>
-                    <input 
-                      type="text" 
-                      value={pcConfig.mask} 
-                      onChange={(e) => handlePcConfigChange('mask', e.target.value)} 
-                      placeholder="e.g., 255.255.255.0" 
-                    />
-                  </div>
-                  <div className="input-group">
-                    <label>Default Gateway:</label>
-                    <input 
-                      type="text" 
-                      value={pcConfig.gateway} 
-                      onChange={(e) => handlePcConfigChange('gateway', e.target.value)} 
-                      placeholder="e.g., 192.168.1.1" 
-                    />
-                  </div>
+                <div className="tab-navigation">
+                  <button 
+                    className={activeTab === 'pc' ? 'tab-active' : ''} 
+                    onClick={() => setActiveTab('pc')}
+                  >
+                    PC Config
+                  </button>
+                  <button 
+                    className={activeTab === 'ping' ? 'tab-active' : ''} 
+                    onClick={() => setActiveTab('ping')}
+                  >
+                    Ping Test
+                  </button>
                 </div>
-                
-                <button className="configure-btn" onClick={configurePc} disabled={isLoading}>
-                  {isLoading ? 'Configuring...' : 'Configure PC'}
-                </button>
+
+                {activeTab === 'pc' && (
+                  <>
+                    <h2>Configure PC {selectedPc.name}</h2>
+                    <div className="pc-input">
+                      <div className="input-group">
+                        <label>IP Address:</label>
+                        <input 
+                          type="text" 
+                          value={pcConfig.ip} 
+                          onChange={(e) => handlePcConfigChange('ip', e.target.value)} 
+                          placeholder="e.g., 192.168.1.10" 
+                        />
+                      </div>
+                      <div className="input-group">
+                        <label>Subnet Mask:</label>
+                        <input 
+                          type="text" 
+                          value={pcConfig.mask} 
+                          onChange={(e) => handlePcConfigChange('mask', e.target.value)} 
+                          placeholder="e.g., 255.255.255.0" 
+                        />
+                      </div>
+                      <div className="input-group">
+                        <label>Default Gateway:</label>
+                        <input 
+                          type="text" 
+                          value={pcConfig.gateway} 
+                          onChange={(e) => handlePcConfigChange('gateway', e.target.value)} 
+                          placeholder="e.g., 192.168.1.1" 
+                        />
+                      </div>
+                    </div>
+                    <button className="configure-btn" onClick={configurePc} disabled={isLoading}>
+                      {isLoading ? 'Configuring...' : 'Configure PC'}
+                    </button>
+                  </>
+                )}
+
+                {activeTab === 'ping' && (
+                  <div className="ping-config">
+                    <h2>Ping Test from {selectedPc.name}</h2>
+                    <div className="ping-input">
+                      <div className="input-group">
+                        <label>Target IP Address:</label>
+                        <input 
+                          type="text" 
+                          value={pingTarget} 
+                          onChange={(e) => setPingTarget(e.target.value)} 
+                          placeholder="e.g., 192.168.1.1" 
+                        />
+                      </div>
+                      <button className="configure-btn" onClick={pingFromPc} disabled={isLoading}>
+                        {isLoading ? 'Pinging...' : 'Ping'}
+                      </button>
+                    </div>
+                    
+                    {pingResult && (
+                      <div className="ping-result">
+                        <h3>Ping Result:</h3>
+                        <pre>{pingResult}</pre>
+                      </div>
+                    )}
+                  </div>
+                )}
               </div>
             )}
           </div>

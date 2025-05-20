@@ -25,27 +25,6 @@ async function connectToDevice(port) {
   }
 }
 
-async function getCommandOutput(port, command) {
-  const conn = await connectToDevice(port);  
 
-  try {
-   
-    await conn.send("\r");
-    
-    
-    await new Promise(resolve => setTimeout(resolve, 2000));  
 
-    
-    const output = await conn.exec(command, { execTimeout: 30000 });
-
-    conn.end();  
-
-    return output; 
-  } catch (err) {
-    console.error('Error executing command:', err);  
-    conn.end();  
-    throw err;  
-  }
-}
-
-module.exports = { connectToDevice, getCommandOutput };
+module.exports = { connectToDevice };
